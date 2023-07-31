@@ -2,7 +2,7 @@
 include('../../connect/func.php');
 //アップデート実行
 //もう一度バージョンを取得する
-$ch = curl_init("https://api.github.com/repos/49372s/cms/releases");
+$ch = curl_init("https://api.github.com/repos/49372s/TTR-CMS/releases");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_USERAGENT,"TKNGH/2.01 (Apache2 / Linux)");
 $response = curl_exec($ch);
@@ -19,7 +19,7 @@ foreach($json as $val){
 $version = strval($version);
 $fhd = fopen("./tmp/update.zip","w");
 //ファイルをダウンロード
-fwrite($fhd,file_get_contents("https://github.com/49372s/cms/archive/refs/tags/".$version.".zip"));
+fwrite($fhd,file_get_contents("https://github.com/49372s/TTR-CMS/archive/refs/tags/".$version.".zip"));
 fclose($fhd);
 
 //展開
@@ -34,7 +34,9 @@ if ($res === TRUE) {
 //アップデートするファイルをconfigから読み出す
 include(VS_DR."/core/resource/config/update.php");
 $target = UPDATE_FILE_LIST;
-
+//アップデートしないファイルをconfigから読みだす
+include(VS_DR."/core/resource/config/reject.php");
+$reject = UPDATE_REJECT_LIST;
 //パスを設定する
 //from
 $from = VS_DR."/api/system/update/tmp/$version/cms-$version/";
@@ -50,8 +52,10 @@ foreach($target as $file){
 if(file_exists($from."new_file.php")){
     include($from."new_file.php");
     //必ず変数は($newfilesforupdate)にしてください。
-    if(!copy($from.$file,$to.$file)){
-        APIResponse(false,"An error was detected while copying the file. File copy was forcibly terminated.<br>For more information, please contact a technician.");
+    foreach($newFilesForUpdate as $file){
+        if(!copy($from.$file,$to.$file)){
+            APIResponse(false,"An error was detected while copying the file. File copy was forcibly terminated.<br>For more information, please contact a technician.");
+        }
     }
 }
 $fhd = fopen(VS_DR."/api/system/version.txt","w");
