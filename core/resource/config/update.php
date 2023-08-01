@@ -31,5 +31,6 @@ define("UPDATE_FILE_LIST",array(
     "api/connect/func.php",
     "api/system/check/index.php",
     "api/system/update/index.php",
+    "api/images/upload/index.php"
 ));
 ?>
