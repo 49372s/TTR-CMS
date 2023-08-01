@@ -65,7 +65,7 @@ include(VS_DR."/core/resource/config/reject.php");
 $reject = UPDATE_REJECT_LIST;
 //パスを設定する
 //from
-$from = VS_DR."/api/system/update/tmp/$version/cms-$version/";
+$from = VS_DR."/api/system/update/tmp/$version/TTR-CMS-$version/";
 //to
 $to = VS_DR."/";
 //コピーを開始
