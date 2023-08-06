@@ -61,8 +61,12 @@ if(!empty($restrict[$now_version])){
 include(VS_DR."/core/resource/config/update.php");
 $target = UPDATE_FILE_LIST;
 //アップデートしないファイルをconfigから読みだす
-include(VS_DR."/core/resource/config/reject.php");
-$reject = UPDATE_REJECT_LIST;
+if(file_exists(VS_DR."/core/resource/config/reject.php")){
+    include(VS_DR."/core/resource/config/reject.php");
+    $reject = UPDATE_REJECT_LIST;
+}else{
+    $reject = array();
+}
 //パスを設定する
 //from
 $from = VS_DR."/api/system/update/tmp/$version/TTR-CMS-$version/";
@@ -70,6 +74,15 @@ $from = VS_DR."/api/system/update/tmp/$version/TTR-CMS-$version/";
 $to = VS_DR."/";
 //コピーを開始
 foreach($target as $file){
+    $reject_ = false;
+    foreach($reject as $rejected){
+        if($file == $rejected){
+            $reject_ = true;
+        }
+    }
+    if($reject_ == true){
+        continue;
+    }
     if(!copy($from.$file,$to.$file)){
         APIResponse(false,"An error was detected while copying the file. File copy was forcibly terminated.<br>For more information, please contact a technician.");
     }
