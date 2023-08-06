@@ -8,7 +8,13 @@ $html = "";
 foreach($res as $val){
     if(!empty($_GET['mode'])){
         if($_GET['mode']=="1"){
-            $html = $html . "<li><a href=\"".VIEW_URL."?id=".$val[0]."\">".$val[1]."</a></li>";
+            $cats = $pdo->query("SELECT * from category");
+            foreach($cats as $cat){
+                if($cat[0]==$val[3]){
+                    $cn = $cat[1];
+                }
+            }
+            $html = $html . "<li onclick=\"location.href='".VIEW_URL."?id=".$val[0]."';\">".$val[1]."<span class=\"ms-3 badge bg-primary\">".$cn."</span><br><span class=\"text-secondary\">更新: ".$val[4]."</span></li>";
         }
     }else{
         if(!APIAuthenticate($_COOKIE['token'])){
