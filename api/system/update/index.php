@@ -83,6 +83,9 @@ foreach($target as $file){
     if($reject_ == true){
         continue;
     }
+    if(!file_exists($from.$file)){
+        continue;
+    }
     if(!copy($from.$file,$to.$file)){
         APIResponse(false,"An error was detected while copying the file. File copy was forcibly terminated.<br>For more information, please contact a technician.");
     }
