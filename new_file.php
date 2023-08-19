@@ -1,6 +1,6 @@
 <?php
 $newFilesForUpdate = array(
-    "api/images/upload/index.php",
-    "api/images/gets/index.php"
+    "api/admin/images/upload/index.php",
+    "api/admin/images/gets/index.php"
 );
 ?>

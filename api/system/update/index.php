@@ -37,7 +37,7 @@ if ($res === TRUE) {
  * これをかけることで、段階的なアップデートが必要となる。なお、この制限は手動で追加する(脳筋)
  */
 $now_version = file_get_contents(VS_DR."/api/system/version.txt");//現在のバージョンを取得
-include(VS_DR."/api/system/update/tmp/$version/cms-$version/restrict.php");
+include(VS_DR."/api/system/update/tmp/$version/TTR-CMS-$version/restrict.php");
 if(!empty($restrict[$now_version])){
     if($restrict[$now_version]<floatval($version)){
         //アップデートができないので一度制限内での最新バージョンで更新を行う
