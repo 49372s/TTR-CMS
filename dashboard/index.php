@@ -45,6 +45,7 @@ loginRedirect();
                                 <li><a class="dropdown-item" onclick="logout()">ログアウト</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item"><a href="/" class="nav-link">トップへ</a></li>
                     </ul>
                 </div>
             </div>
