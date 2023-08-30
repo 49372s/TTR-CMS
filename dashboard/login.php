@@ -9,7 +9,7 @@ if(loginCheck()){
 <!DOCTYPE html>
 <html lang="ja-jp">
     <head>
-        <title>ダッシュボード</title>
+        <title>ログイン | TTR-CMS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -19,7 +19,7 @@ if(loginCheck()){
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/dashboard">Takanashi CMS Dashboard</a>
+                <a class="navbar-brand" href="/dashboard">TTR-CMS Dashboard</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
