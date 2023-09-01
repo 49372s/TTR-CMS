@@ -4,6 +4,7 @@
  * オーバーライドも可能になっています
  * 自動削除ができなかった場合、必ず手動で削除してください。
  */
+include($_SERVER['DOCUMENT_ROOT']."/api/connect/func.php");
 if(!empty($_POST['admin_limit'])){
     $al = $_POST['admin_limit'];
     if(empty($_POST['admin_set'])){
@@ -29,15 +30,39 @@ if(!empty($_POST['admin_limit'])){
     }else{
         $sc = "1";
     }
-    $S_N = $_SERVER['SERVER_NAME'];
+    if(!empty($_SERVER['HTTPS'])){
+        $p = "https://";
+    }else{
+        $p = "http://";
+    }
+    $S_N = $_POST['view_host'];
+    $vu = $_POST['view_url'];
     $files = "<?php
     define('MAX_ADMINISTRATOR',$al);
     define('NAME_ADMINISTRATOR_DEFINED',$as);
     define('NAME_ADMINISTRATOR',$an);
     define('SITE_TITLE',$sn);
-    define('VIEW_URL',$S_N.'');
+    define('VIEW_URL',$p.$S_N.'/'.$vu);
+    define('MYSQL_COMPATIBLE',$sc);
     ?>";
-    
+    $fhd = fopen(VS_DR.'/core/resource/config/config.php',"w");
+    fwrite($fhd,$files);
+    fclose($fhd);
+    $fhd2 = fopen(VS_DR.'/api/info/key.php',"w");
+    $file = '
+    <?php
+    $DATABASE_LOGIN_INFORMATION = array(
+        "host"=>"'.$_POST['mysql_host'].'",
+        "database"=>"'.$_POST['mysql_database'].'",
+        "user"=>"'.$_POST['mysql_user'].'",
+        "password"=>"'.$_POST['mysql_password'].'"
+    );
+    ?>';
+    fwrite($fhd2,$file);
+    fclose($fhd2);
+    unlink(VS_DR."/dashboard/installation.php");
+    echo("設定を完了しました。");
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -116,6 +141,15 @@ if(!empty($_POST['admin_limit'])){
             <h2>投稿の表示先</h2>
             <p>http://<span id="host"></span>/<input type="text" name="view_url"></p>
             <input type="hidden" name="view_host" id="vh">
+            <hr>
+            <h2>MySQL ホスト名</h2>
+            <p><input type="text" name="mysql_host" placeholder="localhost:3306"></p>
+            <h2>MySQL データベース名</h2>
+            <p><input type="text" name="mysql_database" id=""></p>
+            <h2>MySQL ユーザー名</h2>
+            <p><input type="text" name="mysql_user" id=""></p>
+            <h2>MySQL 接続パスワード</h2>
+            <p><input type="password" name="mysql_password" id=""></p>
             <hr>
             <input type="submit" value="設定を完了する">
         </form>
