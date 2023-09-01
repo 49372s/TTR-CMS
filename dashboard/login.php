@@ -28,11 +28,11 @@ if(loginCheck()){
         <div class="w-75 ms-auto me-auto">
             <h1>ログイン</h1>
             <form id="login">
-                <div class="mb-1">
+                <div class="mb-3">
                     <label for="user" class="form-label">ユーザーID</label>
                     <input type="text" class="form-control" id="user" name="user">
                 </div>
-                <div class="mb-1">
+                <div class="mb-3">
                     <label for="pwd" class="form-label">パスワード</label>
                     <input type="password" name="pwd" id="pwd" class="form-control">
                 </div>
@@ -42,11 +42,15 @@ if(loginCheck()){
             <h1>新規登録</h1>
             <p>注意: 新規登録は、1CMSにつきデフォルトで1ユーザーまでです。この設定は設定ファイルから変更できます。詳しくはシステム管理者、または開発者にお問い合わせください。</p>
             <form id="regist">
-                <div class="mb-1">
+                <div class="mb-3">
                     <label for="ru" class="form-label">ユーザID</label>
                     <input type="text" name="user" id="ru" class="form-control">
                 </div>
-                <div class="mb-1">
+                <div class="mb-3">
+                    <label for="hn" class="form-label">ハンドルネーム</label>
+                    <input type="text" name="handle" id="hn" class="form-control">
+                </div>
+                <div class="mb-3">
                     <label for="rp" class="form-label">パスワード</label>
                     <input type="password" name="pwd" id="rp" class="form-control">
                 </div>
