@@ -4,6 +4,41 @@
  * オーバーライドも可能になっています
  * 自動削除ができなかった場合、必ず手動で削除してください。
  */
+if(!empty($_POST['admin_limit'])){
+    $al = $_POST['admin_limit'];
+    if(empty($_POST['admin_set'])){
+        $as = "0";
+        $an = "user";
+    }else{
+        if(!empty($_POST['admin_name'])){
+            $an = $_POST['admin_name'];
+            $as = "1";
+        }else{
+            echo("無効な設定です。");
+            exit();
+        }
+    }
+    if(!empty($_POST['site_name'])){
+        $sn = $_POST['site_name'];
+    }else{
+        echo("無効な設定です。");
+        exit();
+    }
+    if(empty($_POST['sql_compatible'])){
+        $sc = "0";
+    }else{
+        $sc = "1";
+    }
+    $S_N = $_SERVER['SERVER_NAME'];
+    $files = "<?php
+    define('MAX_ADMINISTRATOR',$al);
+    define('NAME_ADMINISTRATOR_DEFINED',$as);
+    define('NAME_ADMINISTRATOR',$an);
+    define('SITE_TITLE',$sn);
+    define('VIEW_URL',$S_N.'');
+    ?>";
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja-jp">
@@ -61,11 +96,11 @@
         <form method="post">
             <h2>管理者の上限</h2>
             <p>管理者の上限です。ここで[0]を設定した場合、管理者ユーザー数に制限が付きません。おすすめは[1]です。</p>
-            <p>上限<input type="number" name="admin_limit" value="1" min="0">人まで</p>
+            <p>上限<input type="number" name="admin_limit" value="1" min="0" require>人まで</p>
             <h2>管理者名の固定</h2>
             <p>管理者名を固定するかどうかの設定です。管理者名を固定する場合、次の項目の設定が有効になります。この設定のチェックを外している場合、次の項目の設定を行っても、その設定はスキップされます。</p>
             <p>また、固定を外している場合のみ、管理者名はあとでダッシュボードにて変更できます。</p>
-            <p><input type="checkbox" name="admin_set" id="adminSet"><label for="adminSet">管理者名を固定する</label></p>
+            <p><input type="checkbox" name="admin_set" id="adminSet" value="on"><label for="adminSet">管理者名を固定する</label></p>
             <h2>管理者名</h2>
             <p>前の項目でチェックが入っている場合、この設定が適用されます。</p>
             <p>記事の作成者の名前を設定します。</p>
@@ -78,9 +113,19 @@
             <p>MySQL 最新版に対応してない、できない場合はこの設定を有効にすると、互換性を重視した動作に移行し、エラーを回避します。</p>
             <p>現在、スターサーバー、Xfreeサーバーなどでこれを有効化しないと動作しないことが判明しています。</p>
             <p><input type="checkbox" name="sql_compatible" id="sqlCom"><label for="sqlCom">SQL互換性を維持する</label></p>
+            <h2>投稿の表示先</h2>
+            <p>http://<span id="host"></span>/<input type="text" name="view_url"></p>
+            <input type="hidden" name="view_host" id="vh">
             <hr>
             <input type="submit" value="設定を完了する">
         </form>
     </div>
+    <script>
+        var target = document.getElementById('host');
+        url = location.href;
+        host = url.split('/')[2];
+        target.innerHTML = host;
+        document.getElementById('vh').value = host;
+    </script>
 </body>
 </html>
