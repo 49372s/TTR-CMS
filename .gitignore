@@ -1,1 +1,3 @@
 .vscode/sftp.json
+core/resource/config/config.php
+api/info/key.php

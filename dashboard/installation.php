@@ -40,9 +40,9 @@ if(!empty($_POST['admin_limit'])){
     $files = "<?php
     define('MAX_ADMINISTRATOR',$al);
     define('NAME_ADMINISTRATOR_DEFINED',$as);
-    define('NAME_ADMINISTRATOR',$an);
-    define('SITE_TITLE',$sn);
-    define('VIEW_URL',$p.$S_N.'/'.$vu);
+    define('NAME_ADMINISTRATOR','$an');
+    define('SITE_TITLE','$sn');
+    define('VIEW_URL','$p$S_N/$vu');
     define('MYSQL_COMPATIBLE',$sc);
     ?>";
     $fhd = fopen(VS_DR.'/core/resource/config/config.php',"w");
