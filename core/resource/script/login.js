@@ -6,7 +6,7 @@
 // -jQuery
 // -Bootstrap
 // -------------------------------
-// version 1.04
+// version 1.05
 
 document.getElementById('login').onsubmit = (e)=>{
     e.preventDefault();

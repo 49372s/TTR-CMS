@@ -36,4 +36,28 @@ function loginRedirect($mode = false){
         }
     }
 }
+
+function APIResponse($flug=false,$data=null){
+    header('Content-Type: application/json;charset=UTF-8;');
+    echo json_encode(array("result"=>$flug,"data"=>$data));
+    exit();
+}
+
+function getSHA($str){
+    return hash("sha3-512",$str);
+}
+
+function emptyCheck($keys,$mode="get"){
+    foreach($keys as $key){
+        if($mode=="get"){
+            if(empty($_GET[$key])){
+                APIResponse(false,"Bad request(GET).");
+            }
+        }else{
+            if(empty($_POST[$key])){
+                APIResponse(false,"Bad request(POST).".$key);
+            }
+        }
+    }
+}
 ?>
